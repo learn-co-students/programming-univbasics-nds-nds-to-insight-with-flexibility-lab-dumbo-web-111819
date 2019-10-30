@@ -88,19 +88,19 @@ describe 'The directors_database method can be processed by the studios_totals m
   describe "and correctly totals the directors' totals" do
     let(:expected) {
       {
-       "Universal"=>1278335390,
-       "Columbia"=>217711904,
-       "Paramount"=>2382072020,
-       "Buena Vista"=>2602319056,
-       "Warner Brothers"=>1174295617,
-       "Fox"=>1280043473,
-       "TriStar"=>205881154,
-       "Focus"=>49275340,
-       "Dreamworks"=>155464351,
-       "Weinstein"=>283346153,
-       "Sony"=>135156125,
-       "Miramax"=>508129831,
-       "MGM"=>83471511
+      "Universal"=>1278335390,
+      "Columbia"=>217711904,
+      "Paramount"=>2382072020,
+      "Buena Vista"=>2602319056,
+      "Warner Brothers"=>1174295617,
+      "Fox"=>1280043473,
+      "TriStar"=>205881154,
+      "Focus"=>49275340,
+      "Dreamworks"=>155464351,
+      "Weinstein"=>283346153,
+      "Sony"=>135156125,
+      "Miramax"=>508129831,
+      "MGM"=>83471511
       }
     }
 
