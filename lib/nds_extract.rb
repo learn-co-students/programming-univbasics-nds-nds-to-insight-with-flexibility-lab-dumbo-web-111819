@@ -30,8 +30,8 @@ def movie_with_director_name(director_name, movie_data)
   }
 end
 
-
 # Your code after this point
+#when calling, use movie_with_director_name for movies_collection
 
 def movies_with_director_key(name, movies_collection)
   # GOAL: For each Hash in an Array (movies_collection), provide a collection
@@ -48,6 +48,15 @@ def movies_with_director_key(name, movies_collection)
   # Array of Hashes where each Hash represents a movie; however, they should all have a
   # :director_name key. This addition can be done by using the provided
   # movie_with_director_name method
+  i = 0
+  
+  while i < movies_collection.length do
+    movies_collection[i][:director_name] = name
+    i += 1
+  end
+  
+  movies_collection
+  
 end
 
 
@@ -63,6 +72,19 @@ def gross_per_studio(collection)
   #
   # Hash whose keys are the studio names and whose values are the sum
   # total of all the worldwide_gross numbers for every movie in the input Hash
+
+  i = 0
+  result = {}
+  
+  while i < collection.length do
+    if !result.has_key?(collection[i][:studio])
+      result["#{collection[i][:studio]}"] = 0
+    end
+    result["#{collection[i][:studio]}"] += collection[i][:worldwide_gross]
+    i += 1
+  end
+  
+  result
 end
 
 def movies_with_directors_set(source)
@@ -76,6 +98,25 @@ def movies_with_directors_set(source)
   #
   # Array of Arrays containing all of a director's movies. Each movie will need
   # to have a :director_name key added to it.
+  output = []
+  i = 0
+  
+  while i < source.length do
+    k = 0
+    output << []
+    while k < source[i][:movies].length do
+      hash = source[i][:movies][k]
+      hash[:director_name] = source[i][:name]
+      output[i] << hash
+      k += 1
+    end
+    i += 1
+  end
+  output
+
+# { :name => "A", :movies => [{ :title => "Test" }] }
+# becomes... [[{:title => "Test", :director_name => "A"}], ...[], ... []]
+
 end
 
 # ----------------    End of Your Code Region --------------------
