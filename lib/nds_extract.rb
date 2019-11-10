@@ -1,6 +1,7 @@
 # Provided, don't edit
 require 'directors_database'
-
+require 'pp'
+pp directors_database
 # A method we're giving you. This "flattens"  Arrays of Arrays so: [[1,2],
 # [3,4,5], [6]] => [1,2,3,4,5,6].
 
@@ -22,13 +23,13 @@ end
 
 def movie_with_director_name(director_name, movie_data)
   { 
-    :title => movie_data[:title],
+    :title => movie_data[:title].to_i,
     :worldwide_gross => movie_data[:worldwide_gross],
     :release_year => movie_data[:release_year],
     :studio => movie_data[:studio],
     :director_name => director_name
   }
-end
+endn
 
 
 # Your code after this point
@@ -42,7 +43,9 @@ def movies_with_director_key(name, movies_collection)
   # INPUT:
   # * name: A director's name
   # * movies_collection: An Array of Hashes where each Hash represents a movie
-  #
+  array_movies = []
+  array_movies << movie_with_director_name(name, movies_collection)
+  array_movies
   # RETURN:
   #
   # Array of Hashes where each Hash represents a movie; however, they should all have a
