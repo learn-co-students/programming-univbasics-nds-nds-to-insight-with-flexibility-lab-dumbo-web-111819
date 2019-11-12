@@ -71,26 +71,26 @@ def gross_per_studio(collection)
   #
   # Hash whose keys are the studio names and whose values are the sum
   # total of all the worldwide_gross numbers for every movie in the input Hash
-list_of_studios = []
-total = 0
-index = 0 
-hash_of_total = {}
- while index < collection.count do 
 
-    if list_of_studios.include?(collection[index][:studio])
+  result = {}
+  i = 0
 
-   total += collection[index][:worldwide_gross]
- else
-  list_of_studios.push(collection[index][:studio])
-  total = 0 
-   total += collection[index][:worldwide_gross]
+  while i < collection.length do
+    movie = collection[i]
+
+    if !result[movie[:studio]]
+      result[movie[:studio]] = movie[:worldwide_gross]
+    else
+      result[movie[:studio]] += movie[:worldwide_gross]
     end
-  hash_of_total[collection[index][:studio]] = total
-  index+=1
+    i += 1
+  end
 
- end
-return hash_of_total
+  result
 end
+
+
+
 #  first push all the studios onto an array, use .unique to eliminate duplicates, then set key/value to 0 then loop through the studios adding th
 # final hash would be hash[index of array of studios] = add total gross per studio 
 
@@ -110,27 +110,22 @@ def movies_with_directors_set(source)
   #
   # Array of Arrays containing all of a director's movies. Each movie will need
   # to have a :director_name key added to it.
- director_list = []
- dir_index = 0 
- results = []
- hash_of_names = []
- director_names = {}
-  while dir_index < source.count do 
-       movies_array = []
-    movie_index = 0 
-    while movie_index < source[dir_index][:movies].count do 
- 
-      movies_array.push(source[dir_index][:movies][movie_index][:title])
-      movie_index+=1 
-        end
-     director_list.push(source[dir_index][:name])
-     director_names[director_list[dir_index]] = movies_array
-  # create the hash in the loop adding the value to a new key
-    dir_index+=1 
-  end 
- director_names
+
+ i = 0
+  a_o_a_movies_by_dir = []
+
+  while i < source.length do
+    dir_info_hash = source[i]
+    director_name = dir_info_hash[:name]
+    directors_movies = dir_info_hash[:movies]
+    a_o_a_movies_by_dir << movies_with_director_key(director_name, directors_movies)
+    i += 1
+  end
+
+  a_o_a_movies_by_dir
 end
-end
+
+
 # movie = source[index][:movies][index][:title]
 # director = source[index][:name]
 #   [[{director1: 'movie'}
