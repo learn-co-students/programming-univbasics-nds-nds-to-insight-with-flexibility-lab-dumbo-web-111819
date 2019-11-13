@@ -1,7 +1,6 @@
 # Provided, don't edit
 require 'directors_database'
-require 'pp'
-pp directors_database
+
 # A method we're giving you. This "flattens"  Arrays of Arrays so: [[1,2],
 # [3,4,5], [6]] => [1,2,3,4,5,6].
 
@@ -43,20 +42,22 @@ def movies_with_director_key(name, movies_collection)
   # INPUT:
   # * name: A director's name
   # * movies_collection: An Array of Hashes where each Hash represents a movie
+  #
   # RETURN:
   #
   # Array of Hashes where each Hash represents a movie; however, they should all have a
   # :director_name key. This addition can be done by using the provided
   # movie_with_director_name method
-  array_movies = []
-  index = 0
-  while index < movies_collection.length do 
-    movie_dir = movies_collection[index]
-    array_movies << movie_with_director_name(name, movie_dir)
-    index += 1 
+  dir_index = 0 
+  return_aoh = []
+  while dir_index < movies_collection.length do
+    movie_data = movies_collection[dir_index]
+    return_aoh << movie_with_director_name(name, movie_data)
+    dir_index += 1 
   end 
   
-  array_movies
+  return_aoh
+  
   
 end
 
@@ -73,18 +74,26 @@ def gross_per_studio(collection)
   #
   # Hash whose keys are the studio names and whose values are the sum
   # total of all the worldwide_gross numbers for every movie in the input Hash
-  result = {}
-  index = 0 
-  while index < collection.length do 
-    movies = collection[index]
-    if !result[movies[:studio]]
-      result[movies[:studio]] = movies[:worldwide_gross]
+  
+  total = {}
+  mov_row = 0 
+  
+  while mov_row < collection.length do 
+   
+    mov = collection[mov_row]
+    
+    if !total[mov[:studio]]
+      total[mov[:studio]] = mov[:worldwide_gross]
     else 
-      result[movies[:studio]] += movies[:worldwide_gross]
-    end 
-    index += 1 
-  end 
-  result 
+      total[mov[:studio]] += mov[:worldwide_gross]
+    end
+    
+    mov_row += 1
+    
+  end
+ 
+  total
+
 end
 
 def movies_with_directors_set(source)
@@ -98,16 +107,15 @@ def movies_with_directors_set(source)
   #
   # Array of Arrays containing all of a director's movies. Each movie will need
   # to have a :director_name key added to it.
-  dir_movie = []
-  index = 0 
-  while index < source.length do 
-    dir_info = source[index]
-    dir_name = dir_info[:name]
-    dir_films = dir_info[:movies]
-    dir_movie << movies_with_director_key(dir_name, dir_films)
-    index += 1 
-  end
-  dir_movie
+  aoa = []
+  dir_row = 0 
+  while dir_row < source.length do 
+    dir_name = source[dir_row][:name]
+    dir_mov = source[dir_row][:movies]
+    aoa << movies_with_director_key(dir_name, dir_mov)
+    dir_row += 1 
+  end 
+  aoa
 end
 
 # ----------------    End of Your Code Region --------------------
